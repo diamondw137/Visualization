@@ -17,6 +17,7 @@ function buildMetadata(sample) {
     // Use `Object.entries` to add each key and value pair to the panel
     Object.entries(metadata).forEach(function([key, value]) {
         console.log(key, value);
+
     // Hint: Inside the loop, you will need to use d3 to append new
     // tags for each key-value in the metadata.
 
@@ -27,9 +28,21 @@ function buildMetadata(sample) {
 function buildCharts(sample) {
 
   // @TODO: Use `d3.json` to fetch the sample data for the plots
+  d3.json(url).then(function(data){
+    console.log(data);
 
     // @TODO: Build a Bubble Chart using the sample data
+var url = "/metadata/<sample>"
+    function buildPlot(){
+d3.json(url).then(function(data){
+console.log(response);
+var data = [response];
 
+var layout = {
+  xaxis: ""
+}
+})
+}
     // @TODO: Build a Pie Chart
     // HINT: You will need to use slice() to grab the top 10 sample_values,
     // otu_ids, and labels (10 each).
