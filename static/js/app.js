@@ -58,8 +58,7 @@ function buildCharts(sample) {
 });
 var layout = {
   title: "Belly Button Biodiversity",
-  xaxis: {title: "IDs"},
-  yaxis: {title: "Values"}
+  xaxis: {title: "OTU IDs"}
 };
 
 Plotly.newPlot("bubble", data, layout);
@@ -68,7 +67,12 @@ Plotly.newPlot("bubble", data, layout);
     // @TODO: Build a Pie Chart
     // HINT: You will need to use slice() to grab the top 10 sample_values,
     // otu_ids, and labels (10 each).
-}
+    var trace2 = {
+      labels = data["otu_label"].splice(0,10),
+      y_values=data["sample_values"].splice(0,10),
+      x_values= data["otu_id"].splice(0,10)
+    };
+
 
 function init() {
   // Grab a reference to the dropdown select element
