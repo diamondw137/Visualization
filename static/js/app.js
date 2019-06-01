@@ -1,29 +1,29 @@
-var metadata = data;
-
 function buildMetadata(sample) {
-
+  var url = `/metadata/${sample}`;
   // @TODO: Complete the following function that builds the metadata panel
 
   // Use `d3.json` to fetch the metadata for a sample
-    d3.json(url).then(function(data) {
-    console.log(data);
+    d3.json(url).then(function(sample) {
+    console.log(sample);
 
     // Use d3 to select the panel with id of `#sample-metadata`
-    var table = d3.select("#sample-metadata");
-    console.log(metadata);
-    // Use `.html("") to clear any existing metadata
-    d3.select("metadata").html("");
+      var table = d3.select("#sample-metadata");
+      console.log(metadata);
+      // Use `.html("") to clear any existing metadata
+      table.html("");
 
-    // Use `Object.entries` to add each key and value pair to the panel
-    Object.entries(metadata).forEach(function([key, value]) {
-        console.log(key, value);
+      // Use `Object.entries` to add each key and value pair to the panel
+      Object.entries(sample).forEach(function([key, value]) {
+        var row = table.append("p");
+        row.text(`${key}: ${value}`);
+      });
 
     // Hint: Inside the loop, you will need to use d3 to append new
     // tags for each key-value in the metadata.
 
     // BONUS: Build the Gauge Chart
     // buildGauge(data.WFREQ);
-}
+};
 
 function buildCharts(sample) {
 
@@ -31,18 +31,40 @@ function buildCharts(sample) {
   d3.json(url).then(function(data){
     console.log(data);
 
-    // @TODO: Build a Bubble Chart using the sample data
-var url = "/metadata/<sample>"
-    function buildPlot(){
-d3.json(url).then(function(data){
-console.log(response);
-var data = [response];
+  // need data 
+  var labels= data["otu_label"];
+  var y_values= data["sample_values"];
+  var x_values= data.["otu_id"];
+  var marker= data["sample_values"];
 
+    // @TODO: Build a Bubble Chart using the sample data 
+    // var trace 
+  var url = `/samples/${sample}`;
+  d3.json(url).then(function(data){
+    var trace1 = {
+      labels = data["otu_label"],
+      y_values=data["sample_values"],
+      x_values= data["otu_id"],
+      marker= data["sample_values"],
+      ids: data["otu_id"],
+      text: data["otu_label"],
+      mode: "markers",
+      type: "bubble"
+      color: labels,
+      size: marker,
+
+  }
+  var data = trace1
+});
 var layout = {
-  xaxis: ""
-}
-})
-}
+  title: "Belly Button Biodiversity",
+  xaxis: {title: "IDs"},
+  yaxis: {title: "Values"}
+};
+
+Plotly.newPlot("bubble", data, layout);
+
+};
     // @TODO: Build a Pie Chart
     // HINT: You will need to use slice() to grab the top 10 sample_values,
     // otu_ids, and labels (10 each).
